@@ -1,4 +1,6 @@
-const word : string = "world";
+import { omdbAPI } from "./env/api-key";
+
+const word : string = "WORLD";
 
 function hello(word: string): string {
   return `Hello ${word}! `;
@@ -7,6 +9,6 @@ function hello(word: string): string {
 const $body = document.querySelector("body");
 const $p = document.createElement("p");
 
-$p.textContent = hello(word);
+$p.textContent = hello(omdbAPI.key);
 
 $body?.append($p);
