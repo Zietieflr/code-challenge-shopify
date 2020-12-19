@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/meyer-reset.css">
   <link rel="stylesheet" href="./css/index.css">
-  <!-- <script src="./src/index.js" defer></script> -->
   <script src="dist/bundle.js" defer></script>
   <title>Shopify Application</title>
 </head>
 <body>
-  
+  <header>
+    <h1>Moviepalooza</h1>
+    <h2>Nominate your favorite movies!</h2>
+  </header>
+  <section class="nominations-container">
+    <h3>Nominations:</h3>
+    <ul id="nominations"></ul>
+    <p></p>
+  </section>
+  <section class="search">
+    <h3>Find your nominations:</h3>
+    <form>
+      <label name="search-label" for="searchbar">Movie Search:</label>
+      <input name="search" id="searchbar" placeholder="Search for movies" />
+      <input type="submit" value="Search" />
+    </form>
+    <nav></nav>
+    <ul></ul>
+  </section>
 </body>
 </html>

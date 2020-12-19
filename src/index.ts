@@ -1,14 +1,19 @@
 import { omdbAPI } from "./env/api-key";
 
-const word : string = "WORLD";
+// search feature of the api
+  // Defaults: first page, 10 per request 
+    // {"Search": [{}*10], "totalResults": "int", "Response": "True"}
+      // search structure: 
+        // {"Title": "str", "Year": "int", "imdbID": "str", "Type": "string", "Poster": "https" or "N/A"}
 
-function hello(word: string): string {
-  return `Hello ${word}! `;
+const $search = document.querySelector(".search form")! as HTMLFormElement;
+$search.addEventListener("submit", searchMovies);
+
+function searchMovies(event : Event) {
+  event.preventDefault();
+  const searchData = new FormData($search);
+  const title = searchData.get("search") as string;
+  fetch(omdbAPI.baseURL(omdbAPI.key, title))
+    .then(response => response.json())
+    .then(result => console.log(result));
 }
-
-const $body = document.querySelector("body");
-const $p = document.createElement("p");
-
-$p.textContent = hello(omdbAPI.key);
-
-$body?.append($p);
