@@ -41,7 +41,7 @@ h3 {
   margin-right: 10%;
   padding: .5rem;
   border-radius: 5px;
-  box-shadow: 3px 3px 7px hsl(0, 0%, 50%);
+  box-shadow: 3px 3px 7px -3px hsl(0, 0%, 50%);
 }
 
 .search form {
@@ -74,14 +74,10 @@ input[type=text] {
   width: 50%;
 }
 
-/* input[type=submit] {
-  background-color: hsl(0, 0%, 97%);
-  padding: .25em;
-  padding-left: .5em;
-  padding-right: .5em;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px -2px hsl(0, 0%, 50%);
+.movie-card {
 
-  font-size: 1rem;
-} */
+}
+
+.movie-card > img {
+  height: 150px;
+}
