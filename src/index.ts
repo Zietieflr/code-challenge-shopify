@@ -79,7 +79,7 @@ function handleNomination($movieCard: Element, $nominate: Element) {
   const $movieNominationCard = $movieCard.cloneNode(true);
   $movieCard.removeChild($nominate);
   const $nominated = document.createElement("p");
-  $nominated.textContent = "Nominated!"
+    $nominated.textContent = "Nominated!";
   $movieCard.append($nominated);
   const $remove = $movieNominationCard.lastChild!;
   $remove.textContent = "Remove";

@@ -98,10 +98,12 @@ ul {
 }
 
 .movie-card {
+  position: relative;
   flex: 1 0 calc(20% - 2rem);
   max-width: calc(20% - 2rem);
   margin-bottom: 1rem;
   padding: .5rem;
+  padding-bottom: 2.25rem;
   border-radius: 5px;
   box-shadow: 0px 0px 5px -2px hsl(0, 0%, 50%);
 }
@@ -111,4 +113,24 @@ ul {
   width: 80%;
   border-radius: 3px;
   box-shadow: 2px 2px 5px -3px hsl(0, 0%, 50%);
+}
+
+.movie-card :last-child {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+  font-family: 'Tomorrow', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: hsl(120, 60%, 45%);
+}
+
+.movie-card p:last-child {
+  background-color: hsla(120, 60%, 45%, .5);
 }
