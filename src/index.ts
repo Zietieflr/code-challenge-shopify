@@ -56,7 +56,7 @@ function createMovieCard(movie: Movie) {
   const $title = document.createElement("h4");
   $title.textContent = movie.Title;
   const $year = document.createElement("p");
-  $year.textContent = movie.Year
+  $year.textContent = `Released: ${movie.Year}`
   const $poster = document.createElement("img");
   const imgSource = movie.Poster !== "N/A" 
     ? movie.Poster
@@ -69,7 +69,7 @@ function createMovieCard(movie: Movie) {
   const $nominate = document.createElement("button");
   $nominate.textContent = "Nominate!";
   $nominate.addEventListener("click", () => handleNomination($movieCard, $nominate));
-  $movieCard.append($title, $year, $poster, $toIMDb, $nominate);
+  $movieCard.append($title, $poster, $year, $toIMDb, $nominate);
   return $movieCard;
 }
 
