@@ -6,49 +6,53 @@ interface Movie {
   imdbID: string;
   Type: string;
   Poster: string;
-}
+};
 
 interface MovieAPIResponseSuccess {
   Search: Array<Movie>;
   totalResults: string;
   Response: string;
-}
+};
 
 interface MovieAPIResponseFailure {
   Response: string;
   Error: string;
-}
+};
 
 const $nominationsContainer = document.querySelector(".nominations ul");
-const $nominationsCount = document.querySelector(".search ul");
+const $nominationsCount = document.querySelector(".nominations p");
 const $moviesNav = document.querySelector(".search nav");
 const $moviesContainer = document.querySelector(".search ul");
 const $searchForm = document.querySelector(".search form")! as HTMLFormElement;
 $searchForm.addEventListener("submit", searchMovies);
 
+let page = 1;
 function searchMovies(event : Event) {
   event.preventDefault();
+  page = 1;
   $moviesContainer!.innerHTML = "";
   const searchData = new FormData($searchForm);
   const searchTitle = searchData.get("search") as string;
   fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle))
     .then(response => response.json())
-    .then(result => handleSearchResponse(result));
-}
+    .then(result => handleSearchResponse(result, searchTitle));
+};
 
 function handleSearchResponse(
-  searchResult: MovieAPIResponseSuccess | MovieAPIResponseFailure
+  searchResult: MovieAPIResponseSuccess | MovieAPIResponseFailure, 
+  searchTitle: string
 ) {
   searchResult.Response === "True"
-    ? handleSuccess(searchResult as MovieAPIResponseSuccess)
+    ? handleSuccess(searchResult as MovieAPIResponseSuccess, searchTitle)
     : handleFailure(searchResult as MovieAPIResponseFailure);
-}
+};
 
-function handleSuccess(results: MovieAPIResponseSuccess) {
+function handleSuccess(results: MovieAPIResponseSuccess, searchTitle: string) {
+  searchNavigation(results.totalResults, page, searchTitle);
   results.Search.forEach((movie: Movie) => {
     $moviesContainer?.append(createMovieCard(movie))
   });
-}
+};
 
 function createMovieCard(movie: Movie) {
   const $movieCard = document.createElement("li");
@@ -71,7 +75,7 @@ function createMovieCard(movie: Movie) {
   $nominate.addEventListener("click", () => handleNomination($movieCard, $nominate));
   $movieCard.append($title, $poster, $year, $toIMDb, $nominate);
   return $movieCard;
-}
+};
 
 const posterPlaceHolder = "https://everyfad.com/static/images/movie_poster_placeholder.29ca1c87.svg";
 
@@ -85,16 +89,80 @@ function handleNomination($movieCard: Element, $nominate: Element) {
   $remove.textContent = "Remove";
   $remove.addEventListener("click", () => handleNominationRemoval($movieCard, $movieNominationCard, $nominate));
   $nominationsContainer!.append($movieNominationCard);
-}
+};
 
 function handleNominationRemoval($movieCard: Element, $movieNominationCard: Node, $nominate: Element) {
   $movieNominationCard.parentNode!.removeChild($movieNominationCard);
   $movieCard.removeChild($movieCard.lastChild!);
   $movieCard.append($nominate);
-}
+};
 
 function handleFailure(results: MovieAPIResponseFailure) {
   const $errorMessage = document.createElement("p");
   $errorMessage.textContent = results.Error; 
   $moviesContainer?.append($errorMessage);
+};
+
+function searchNavigation(count: string, page: number, searchTitle: string) {
+  $moviesNav!.innerHTML = "";
+  const $previous = previousElement(count, page, searchTitle);
+  const $movieCount = document.createElement("p");
+    $movieCount.textContent = movieNavCount(count, page);
+  const $next = nextElement(count, page, searchTitle)
+  $moviesNav?.append($previous, $movieCount, $next);
 }
+
+function movieNavCount(count: string, page: number): string {
+  let countMax = page*10;
+  const countMin = (page-1)*10+1;
+  countMax = countMax > +count ? +count : countMax;
+  return `Displaying movies ${countMin}-${countMax} of ${count}.`
+}
+
+function previousElement(
+  count: string, page: number, searchTitle: string
+): Element {
+  let $previous: Element;
+  if (page - 1){
+    $previous = document.createElement("button");
+      $previous.addEventListener("click", () => {
+        previousPage(count, page, searchTitle);
+      });
+  } else {
+    $previous = document.createElement("p");
+  }
+  $previous.textContent = "<<"
+  return $previous;
+}
+
+function nextElement(
+  count: string, page: number, searchTitle: string
+): Element {
+  let $next: Element;
+  if (page*10 <= +count){
+    $next = document.createElement("button");
+      $next.addEventListener("click", () => {
+        nextPage(count, page, searchTitle);
+      });
+  } else {
+    $next = document.createElement("p");
+  }
+  $next.textContent = ">>"
+  return $next;
+} 
+
+function previousPage(count: string, page: number, searchTitle: string) {
+  page--;
+  $moviesNav!.innerHTML = "";
+  fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
+    .then(response => response.json())
+    .then(result => handleSearchResponse(result, searchTitle));
+};
+
+function nextPage(count: string, page: number, searchTitle: string) {
+  page++;
+  $moviesNav!.innerHTML = "";
+  fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
+    .then(response => response.json())
+    .then(result => handleSearchResponse(result, searchTitle));
+};
