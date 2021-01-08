@@ -30,7 +30,6 @@ let page = 1;
 function searchMovies(event : Event) {
   event.preventDefault();
   page = 1;
-  $moviesContainer!.innerHTML = "";
   const searchData = new FormData($searchForm);
   const searchTitle = searchData.get("search") as string;
   fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle))
@@ -48,7 +47,8 @@ function handleSearchResponse(
 };
 
 function handleSuccess(results: MovieAPIResponseSuccess, searchTitle: string) {
-  searchNavigation(results.totalResults, page, searchTitle);
+  searchNavigation(results.totalResults, searchTitle);
+  $moviesContainer!.innerHTML = "";
   results.Search.forEach((movie: Movie) => {
     $moviesContainer?.append(createMovieCard(movie))
   });
@@ -103,16 +103,16 @@ function handleFailure(results: MovieAPIResponseFailure) {
   $moviesContainer?.append($errorMessage);
 };
 
-function searchNavigation(count: string, page: number, searchTitle: string) {
+function searchNavigation(count: string, searchTitle: string) {
   $moviesNav!.innerHTML = "";
-  const $previous = previousElement(count, page, searchTitle);
+  const $previous = previousElement(count, searchTitle);
   const $movieCount = document.createElement("p");
-    $movieCount.textContent = movieNavCount(count, page);
-  const $next = nextElement(count, page, searchTitle)
+    $movieCount.textContent = movieNavCount(count);
+  const $next = nextElement(count, searchTitle)
   $moviesNav?.append($previous, $movieCount, $next);
 }
 
-function movieNavCount(count: string, page: number): string {
+function movieNavCount(count: string): string {
   let countMax = page*10;
   const countMin = (page-1)*10+1;
   countMax = countMax > +count ? +count : countMax;
@@ -120,14 +120,12 @@ function movieNavCount(count: string, page: number): string {
 }
 
 function previousElement(
-  count: string, page: number, searchTitle: string
+  count: string, searchTitle: string
 ): Element {
   let $previous: Element;
   if (page - 1){
     $previous = document.createElement("button");
-      $previous.addEventListener("click", () => {
-        previousPage(count, page, searchTitle);
-      });
+      $previous.addEventListener("click", () => changePage(searchTitle, -1));
   } else {
     $previous = document.createElement("p");
   }
@@ -136,14 +134,12 @@ function previousElement(
 }
 
 function nextElement(
-  count: string, page: number, searchTitle: string
+  count: string, searchTitle: string
 ): Element {
   let $next: Element;
   if (page*10 <= +count){
     $next = document.createElement("button");
-      $next.addEventListener("click", () => {
-        nextPage(count, page, searchTitle);
-      });
+      $next.addEventListener("click", () => changePage(searchTitle, 1));
   } else {
     $next = document.createElement("p");
   }
@@ -151,15 +147,15 @@ function nextElement(
   return $next;
 } 
 
-function previousPage(count: string, page: number, searchTitle: string) {
-  page--;
+function changePage(searchTitle: string, increment: number) {
+  page += increment;
   $moviesNav!.innerHTML = "";
   fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
     .then(response => response.json())
     .then(result => handleSearchResponse(result, searchTitle));
 };
 
-function nextPage(count: string, page: number, searchTitle: string) {
+function nextPage(searchTitle: string) {
   page++;
   $moviesNav!.innerHTML = "";
   fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
