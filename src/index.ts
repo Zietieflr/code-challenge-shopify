@@ -154,11 +154,3 @@ function changePage(searchTitle: string, increment: number) {
     .then(response => response.json())
     .then(result => handleSearchResponse(result, searchTitle));
 };
-
-function nextPage(searchTitle: string) {
-  page++;
-  $moviesNav!.innerHTML = "";
-  fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
-    .then(response => response.json())
-    .then(result => handleSearchResponse(result, searchTitle));
-};

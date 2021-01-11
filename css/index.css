@@ -3,6 +3,7 @@
 body {
   background-color: hsl(0, 0%, 90%);
   font-family: 'Tomorrow', sans-serif;
+  color: hsl(0, 0%, 10%);
 }
 
 h1 {
@@ -104,6 +105,40 @@ ul {
 
 .nominations > ul > li:last-child {
   margin-right: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+nav p, nav button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  font-family: 'Tomorrow', sans-serif;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  background-color: hsla(0, 0%, 0%, 0);
+  border: none;
+  border-radius: 6px;
+}
+
+nav button {
+  box-shadow: 1px 1px 5px -2px hsl(0, 0%, 50%);
+}
+
+nav p {
+  color: hsl(0, 0%, 40%);
+}
+
+nav :nth-child(2) {
+  font-size: 1.15rem;
+  line-height: 2.5rem;
+  color: hsl(0, 0%, 10%);
 }
 
 .movie-card {
