@@ -80,6 +80,12 @@ function createMovieCard(movie: Movie) {
 const posterPlaceHolder = "https://everyfad.com/static/images/movie_poster_placeholder.29ca1c87.svg";
 
 function handleNomination($movieCard: Element, $nominate: Element) {
+  $nominationsContainer!.childElementCount < 5
+    ? nominationSuccess($movieCard, $nominate)
+    : null // add a toast that all nominations have been done
+};
+
+function nominationSuccess($movieCard: Element, $nominate: Element) {
   const $movieNominationCard = $movieCard.cloneNode(true);
   $movieCard.removeChild($nominate);
   const $nominated = document.createElement("p");
@@ -87,14 +93,29 @@ function handleNomination($movieCard: Element, $nominate: Element) {
   $movieCard.append($nominated);
   const $remove = $movieNominationCard.lastChild!;
   $remove.textContent = "Remove";
-  $remove.addEventListener("click", () => handleNominationRemoval($movieCard, $movieNominationCard, $nominate));
+  $remove.addEventListener(
+    "click", 
+    () => handleNominationRemoval($movieCard, $movieNominationCard, $nominate)
+  );
   $nominationsContainer!.append($movieNominationCard);
-};
+  nominationCountDisplay();
+  // toast for if nominations have hit 5
+}
 
-function handleNominationRemoval($movieCard: Element, $movieNominationCard: Node, $nominate: Element) {
+function nominationCountDisplay() {
+  const text = `${$nominationsContainer!.childElementCount} of 5 nominations made!`;
+  $nominationsCount!.textContent = text;
+}
+
+function handleNominationRemoval(
+  $movieCard: Element, 
+  $movieNominationCard: Node, 
+  $nominate: Element
+) {
   $movieNominationCard.parentNode!.removeChild($movieNominationCard);
   $movieCard.removeChild($movieCard.lastChild!);
   $movieCard.append($nominate);
+  nominationCountDisplay();
 };
 
 function handleFailure(results: MovieAPIResponseFailure) {
