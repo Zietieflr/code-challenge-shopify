@@ -34,7 +34,7 @@ h3 {
   padding: .5rem;
   border-radius: 5px;
   box-shadow: 2px 2px 5px -2px hsl(0, 0%, 50%);
-  min-height: 5rem;
+  min-height: 20rem;
 }
 
 .search {
@@ -93,6 +93,7 @@ ul {
 
 .nominations > ul {
   justify-content: left;
+  min-height: 18rem;
 }
 
 .nominations > ul > li:first-child {
@@ -105,6 +106,11 @@ ul {
 
 .nominations > ul > li:last-child {
   margin-right: 0;
+}
+
+.nominations > p:last-child {
+  text-align: center;
+  font-weight: 500;
 }
 
 nav {
