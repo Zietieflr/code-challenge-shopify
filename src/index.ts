@@ -19,6 +19,7 @@ interface MovieAPIResponseFailure {
   Error: string;
 };
 
+const $body = document.querySelector("body");
 const $nominationsContainer = document.querySelector(".nominations ul");
 const $nominationsCount = document.querySelector(".nominations p");
 const $moviesNav = document.querySelector(".search nav");
@@ -80,9 +81,10 @@ function createMovieCard(movie: Movie) {
 const posterPlaceHolder = "https://everyfad.com/static/images/movie_poster_placeholder.29ca1c87.svg";
 
 function handleNomination($movieCard: Element, $nominate: Element) {
+  const text = "Remove a nomination to add another!";
   $nominationsContainer!.childElementCount < 5
     ? nominationSuccess($movieCard, $nominate)
-    : null // add a toast that all nominations have been done
+    : toast(text, 3000);
 };
 
 function nominationSuccess($movieCard: Element, $nominate: Element) {
@@ -99,7 +101,7 @@ function nominationSuccess($movieCard: Element, $nominate: Element) {
   );
   $nominationsContainer!.append($movieNominationCard);
   nominationCountDisplay();
-  // toast for if nominations have hit 5
+  if ($nominationsContainer!.childElementCount === 5) fiveNominations();
 }
 
 function nominationCountDisplay() {
@@ -174,4 +176,20 @@ function changePage(searchTitle: string, increment: number) {
   fetch(omdbAPI.baseURL(omdbAPI.key, searchTitle, page))
     .then(response => response.json())
     .then(result => handleSearchResponse(result, searchTitle));
-};
+}
+
+function fiveNominations() {
+  const text = "You've selected your five nominations!";
+  toast(text, 5000);
+}
+
+function toast(text: string, duration: number) {
+  const $toast = document.createElement("h4");
+  $toast.textContent = text;
+  $body?.append($toast);
+  setInterval(removeToast, duration, $toast);
+}
+
+function removeToast($toast: Element) {
+  $body!.removeChild($toast);
+}
