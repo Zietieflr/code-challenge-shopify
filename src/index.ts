@@ -25,6 +25,7 @@ const $nominationsCount = document.querySelector(".nominations p");
 const $moviesNav = document.querySelector(".search nav");
 const $moviesContainer = document.querySelector(".search ul");
 const $searchForm = document.querySelector(".search form")! as HTMLFormElement;
+const $toast = document.querySelector("h4");
 $searchForm.addEventListener("submit", searchMovies);
 
 let page = 1;
@@ -84,7 +85,7 @@ function handleNomination($movieCard: Element, $nominate: Element) {
   const text = "Remove a nomination to add another!";
   $nominationsContainer!.childElementCount < 5
     ? nominationSuccess($movieCard, $nominate)
-    : toast(text, 3000);
+    : toast(text, 100000, "nominations-full"); // 3000
 };
 
 function nominationSuccess($movieCard: Element, $nominate: Element) {
@@ -128,7 +129,7 @@ function handleFailure(results: MovieAPIResponseFailure) {
 
 function searchNavigation(count: string, searchTitle: string) {
   $moviesNav!.innerHTML = "";
-  const $previous = previousElement(count, searchTitle);
+  const $previous = previousElement(searchTitle);
   const $movieCount = document.createElement("p");
     $movieCount.textContent = movieNavCount(count);
   const $next = nextElement(count, searchTitle)
@@ -142,9 +143,7 @@ function movieNavCount(count: string): string {
   return `Displaying movies ${countMin}-${countMax} of ${count}.`
 }
 
-function previousElement(
-  count: string, searchTitle: string
-): Element {
+function previousElement(searchTitle: string): Element {
   let $previous: Element;
   if (page - 1){
     $previous = document.createElement("button");
@@ -180,16 +179,16 @@ function changePage(searchTitle: string, increment: number) {
 
 function fiveNominations() {
   const text = "You've selected your five nominations!";
-  toast(text, 5000);
+  toast(text, 100000, "nominations-complete"); // 5000
 }
 
-function toast(text: string, duration: number) {
-  const $toast = document.createElement("h4");
-  $toast.textContent = text;
-  $body?.append($toast);
-  setInterval(removeToast, duration, $toast);
+function toast(text: string, duration: number, className: string) {
+  $toast!.className = className;
+  $toast!.textContent = text;
+  setInterval(removeToast, duration, $toast!, className);
 }
 
-function removeToast($toast: Element) {
-  $body!.removeChild($toast);
+function removeToast($toast: Element, className: string) {
+  $toast.textContent = "";
+  $toast.classList.remove(className);
 }

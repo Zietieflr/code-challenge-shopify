@@ -216,3 +216,13 @@ nav :nth-child(2) {
 .movie-card p:last-child {
   background-color: hsla(48, 90%, 70%, .5);
 }
+
+.nominations-complete {
+  position: fixed;
+  top: 2rem;
+}
+
+.nominations-full {
+  position: fixed;
+  bottom: 2rem;
+}
