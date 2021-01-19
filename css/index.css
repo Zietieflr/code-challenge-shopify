@@ -217,12 +217,15 @@ nav :nth-child(2) {
   background-color: hsla(48, 90%, 70%, .5);
 }
 
-.nominations-complete {
+body h4:last-child {
   position: fixed;
-  top: 2rem;
-}
-
-.nominations-full {
-  position: fixed;
-  bottom: 2rem;
+  bottom: 5rem;
+  left: 50vw;
+  transform: translateX(-50%);
+  padding: 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  background-color: hsla(48, 90%, 70%, 1);
+  border-radius: 2rem;
+  box-shadow: 2px 2px 7px -2px hsl(0, 0%, 50%);
 }
