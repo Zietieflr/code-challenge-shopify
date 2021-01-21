@@ -85,7 +85,7 @@ function handleNomination($movieCard: Element, $nominate: Element) {
   const text = "Remove a nomination to add another!";
   $nominationsContainer!.childElementCount < 5
     ? nominationSuccess($movieCard, $nominate)
-    : toast(text, 100000, "nominations-full"); // 3000
+    : toast(text, 3000);
 };
 
 function nominationSuccess($movieCard: Element, $nominate: Element) {
@@ -179,16 +179,17 @@ function changePage(searchTitle: string, increment: number) {
 
 function fiveNominations() {
   const text = "You've selected your five nominations!";
-  toast(text, 100000, "nominations-complete"); // 5000
+  toast(text, 5000);
 }
 
-function toast(text: string, duration: number, className: string) {
-  $toast!.className = className;
+function toast(text: string, duration: number) {
+  $toast!.style.display = 'flex';
   $toast!.textContent = text;
-  setInterval(removeToast, duration, $toast!, className);
+  let intervalID = window.setInterval(() => removeToast($toast!, intervalID), duration);
 }
 
-function removeToast($toast: Element, className: string) {
+function removeToast($toast: HTMLElement, intervalID: number) {
   $toast.textContent = "";
-  $toast.classList.remove(className);
+  $toast!.style.display = 'none';
+  clearInterval(intervalID);
 }

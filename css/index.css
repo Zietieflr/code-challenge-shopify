@@ -218,6 +218,7 @@ nav :nth-child(2) {
 }
 
 body h4:last-child {
+  display: none;
   position: fixed;
   bottom: 5rem;
   left: 50vw;
