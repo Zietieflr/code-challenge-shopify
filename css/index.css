@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@100;300;400;500;700&display=swap');
 
+:root {
+  --background-color: hsl(0, 0%, 90%);
+  --font-color:  hsl(0, 0%, 10%);
+  --faded-font-color: hsl(0, 0%, 40%);
+  --primary-accent:  hsl(48, 90%, 70%);
+  --faded-accent: hsl(48, 90%, 85%);
+  --primary-shadow: 2px 2px 5px -2px hsl(0, 0%, 50%);
+}
+
 body {
-  background-color: hsl(0, 0%, 90%);
+  background-color: var(--background-color);
   font-family: 'Tomorrow', sans-serif;
-  color: hsl(0, 0%, 10%);
+  color: var(--font-color);
 }
 
 h1 {
@@ -33,7 +42,7 @@ h3 {
   margin-bottom: 1.5rem;
   padding: .5rem;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px -2px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
   min-height: 20rem;
 }
 
@@ -43,7 +52,7 @@ h3 {
   margin-bottom: 2rem;
   padding: .5rem;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px -2px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
 }
 
 .search form {
@@ -67,7 +76,7 @@ input[type=text], input[type=submit] {
   color: hsla(0, 0%, 0%, 1);
   border: none;
   border-radius: 5px;
-  box-shadow: 2px 2px 7px -2px hsl(48, 90%, 40%);
+  box-shadow: 2px 2px 7px -2px var(--primary-accent);
 
   font-size: 1rem;
 }
@@ -80,8 +89,8 @@ input[type=text] {
 input[type=submit] {
   font-size: 1.25rem;
   font-weight: 500;
-  background-color: hsl(48, 90%, 70%);
-  box-shadow: 2px 2px 7px -2px hsl(0, 0%, 50%);
+  background-color: var(--primary-accent);
+  box-shadow: var(--primary-shadow);
 }
 
 ul {
@@ -128,23 +137,23 @@ nav p, nav button {
   font-family: 'Tomorrow', sans-serif;
   font-size: 2rem;
   line-height: 2.5rem;
-  background-color: hsla(0, 0%, 0%, 0);
+  background-color: transparent;
   border: none;
   border-radius: 6px;
 }
 
 nav button {
-  box-shadow: 1px 1px 5px -2px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
 }
 
 nav p {
-  color: hsl(0, 0%, 40%);
+  color: var(--faded-font-color);
 }
 
 nav :nth-child(2) {
   font-size: 1.15rem;
   line-height: 2.5rem;
-  color: hsl(0, 0%, 10%);
+  color: var(--font-color);
 }
 
 .movie-card {
@@ -156,7 +165,7 @@ nav :nth-child(2) {
   padding-bottom: 3.75rem;
   text-align: center;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px -2px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
 }
 
 .movie-card h4 {
@@ -171,10 +180,9 @@ nav :nth-child(2) {
 }
 
 .movie-card img {
-  /* margin-bottom: .1rem; */
   width: 80%;
   border-radius: 3px;
-  box-shadow: 2px 2px 5px -3px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
 }
 
 .movie-card p:nth-child(3) {
@@ -187,14 +195,14 @@ nav :nth-child(2) {
   height: 1.5rem;
   padding: .4rem;
   line-height: 1.5rem;
-  color: black;
+  color: var(--font-color);
   font-weight: 600;
   background-color: #F5C516;
   border-radius: 7px;
 }
 
 .movie-card a:visited {
-  color: black;
+  color: var(--font-color);
 }
 
 .movie-card :last-child {
@@ -210,11 +218,11 @@ nav :nth-child(2) {
   line-height: 3rem;
   border: none;
   border-radius: 5px;
-  background-color: hsl(48, 90%, 70%);
+  background-color: var(--primary-accent);
 }
 
 .movie-card p:last-child {
-  background-color: hsla(48, 90%, 70%, .5);
+  background-color: var(--faded-accent);
 }
 
 body h4:last-child {
@@ -226,7 +234,7 @@ body h4:last-child {
   padding: 2rem;
   font-size: 1.5rem;
   font-weight: 500;
-  background-color: hsla(48, 90%, 70%, 1);
+  background-color: var(--primary-accent);
   border-radius: 2rem;
-  box-shadow: 2px 2px 7px -2px hsl(0, 0%, 50%);
+  box-shadow: var(--primary-shadow);
 }
