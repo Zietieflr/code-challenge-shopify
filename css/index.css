@@ -2,6 +2,7 @@
 
 :root {
   --background-color: hsl(0, 0%, 90%);
+  --background-accent: hsl(235, 60%, 70%);
   --font-color:  hsl(0, 0%, 10%);
   --faded-font-color: hsl(0, 0%, 40%);
   --primary-accent:  hsl(48, 90%, 70%);
@@ -15,20 +16,40 @@ body {
   color: var(--font-color);
 }
 
-h1 {
-  margin-top: 1rem;
+header {
+  background-color: var(--background-accent);
+  box-shadow: 0px 3px 3px var(--background-accent);
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+/* h1 {
+  padding-top: 1rem;
   padding-bottom: .5rem;
   font-size: 3rem;
   text-align: center;
+  background-color: var(--background-accent);
+} */
+h1 {
+  padding: 1rem;
+  font-size: 3rem;
 }
 
-h2 {
+/* h2 {
   margin-bottom: 1rem;
   padding-top: .5rem;
   padding-bottom: .5rem;
   font-size: 2rem;
   text-align: center;
-  box-shadow: 0px 10px 15px -5px hsl(0, 0%, 0%);
+  background-color: var(--background-accent);
+  box-shadow: 0px 3px 3px var(--background-accent);
+} */
+h2 {
+  position: absolute;
+  right: 1rem;
+  height: 100%;
+  font-size: 2rem;
+  line-height: 100%;
 }
 
 h3 {
@@ -44,6 +65,7 @@ h3 {
   border-radius: 5px;
   box-shadow: var(--primary-shadow);
   min-height: 20rem;
+  background-color: var(--background-color);
 }
 
 .search {
@@ -53,6 +75,7 @@ h3 {
   padding: .5rem;
   border-radius: 5px;
   box-shadow: var(--primary-shadow);
+  background-color: var(--background-color);
 }
 
 .search form {
